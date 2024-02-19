@@ -141,7 +141,7 @@ def pronounce(translated_texts):
 
 def pronounce_groupped(translated_texts):
     portion = 25
-    for lang in used_langs:  # ["en", "ko"]
+    for lang in ["ru"]: #used_langs:  # ["en", "ko"]
         translator = global_translators[lang]
         tts = TextToSpeechHelper(lang)
         tts.activate_window()
@@ -332,7 +332,7 @@ group = [
     ("c:/Cache/Sounds/ru/e5e20d4a8fa25b7aaca4ee4342f238a9.mp3", "Венгрия"),
 ]
 #split_into_sentenses(group, 'output.mp3')
-#pronounce_groupped(countries.countries)
+pronounce_groupped(countries.countries)
 #pronounce(countries.countries)
 translate_and_pronounce(texts)
 #pronounce_groupped(cities_json)

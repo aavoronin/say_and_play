@@ -1,0 +1,2 @@
+class SoundHelper:
+    pass
