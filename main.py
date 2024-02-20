@@ -6,6 +6,7 @@ import pandas as pd
 import time
 
 import librosa as librosa
+import pyautogui
 import sounddevice as sd
 from scipy.io.wavfile import write
 
@@ -17,7 +18,7 @@ import countries
 from AudioRecorder import AudioRecorder
 from SoundHelper import SoundHelper
 from TextToSpeechHelper import TextToSpeechHelper
-from TranslationsHelper import used_langs, global_translators
+from TranslationsHelper import used_langs, global_translators, TranslationsHelper
 from cities import cities_json
 
 texts = {
@@ -141,13 +142,14 @@ def pronounce(translated_texts):
 
 def pronounce_groupped(translated_texts):
     portion = 25
-    for lang in ["ru"]: #used_langs:  # ["en", "ko"]
+    for lang in used_langs:  # ["en", "ko"]
         translator = global_translators[lang]
+        cl = translated_texts[lang]
+
         tts = TextToSpeechHelper(lang)
         tts.activate_window()
         tts.select_language(lang)
         tts.return_to_text()
-        cl = translated_texts[lang]
         group = []
 
         for c in cl:
@@ -156,6 +158,7 @@ def pronounce_groupped(translated_texts):
                 continue
             #print(text)
             translation = text #if lang == "en" else translator.translate(text)
+            translation = TranslationsHelper.find_prononciation(translation, lang)
             print(translation)
             file_name = SoundHelper.get_filename_for(lang, translation)
             if os.path.exists(file_name):
@@ -334,7 +337,7 @@ group = [
 #split_into_sentenses(group, 'output.mp3')
 pronounce_groupped(countries.countries)
 #pronounce(countries.countries)
-translate_and_pronounce(texts)
+#translate_and_pronounce(texts)
 #pronounce_groupped(cities_json)
 #pronounce(cities_json)
 

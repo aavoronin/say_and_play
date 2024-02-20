@@ -90,7 +90,7 @@ class TextToSpeechHelper:
     def pronounce(self, text_to_type):
         # Press Ctrl+A
         pyautogui.hotkey('ctrl', 'a')
-        time.sleep(DELAY)
+        time.sleep(2)
 
         # Press Del
         pyautogui.press('delete')
